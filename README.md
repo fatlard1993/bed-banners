@@ -35,7 +35,8 @@ The screen is the other half. The loom's preview asks the banner slot for its it
 a banner to learn the flag's base colour, and a bed is not a banner: the client crashed the moment
 a pattern was clicked with a bed in the slot. The preview is handed a banner of the bed's
 colour instead, which is the only thing it asked for, so the preview draws the pattern on a
-flag of that colour.
+flag of that colour. That guard lives in Pandorical's client half, not here: this mod ships no
+client code, and a client with Pandorical has the loom held up for it.
 
 Dyed beds only. A straw bed has no colour for a banner to stand in for.
 
