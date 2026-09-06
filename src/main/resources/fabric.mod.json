@@ -24,6 +24,7 @@
     "fabricloader": ">=${loaderVersion}",
     "fabric-api": "${fabricApiVersion}",
     "minecraft": "${minecraftDependency}",
-    "java": ">=25"
+    "java": ">=25",
+    "pandorical": "*"
   }
 }

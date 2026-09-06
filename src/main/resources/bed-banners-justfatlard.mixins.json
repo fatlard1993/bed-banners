@@ -6,6 +6,9 @@
     "LoomBannerSlotMixin",
     "BlockPlacedMixin"
   ],
+  "client": [
+    "client.LoomScreenBedMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
