@@ -11,6 +11,7 @@
     "sources": "https://github.com/fatlard1993/bed-banners"
   },
   "license": "MIT",
+  "icon": "assets/bed-banners-justfatlard/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

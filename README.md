@@ -7,6 +7,9 @@ A Fabric mod that lets a bed go in the loom and come out with a pattern on the b
 Put a bed in the loom's banner slot, a dye beside it, a pattern if you have one, and take out a bed
 wearing that pattern. Every pattern the loom offers, layered as deep as a banner can be layered.
 
+Break a patterned bed and you get the patterned bed back, so the design moves house with it. Beds
+standing side by side keep one pattern each.
+
 ## How It Works, And Why That Matters
 
 **Beds have no block entity on this version.** They were converted to ordinary model-rendered
@@ -39,6 +42,13 @@ flag of that colour. That guard lives in Pandorical's client half, not here: thi
 client code, and a client with Pandorical has the loom held up for it.
 
 Dyed beds only. A straw bed has no colour for a banner to stand in for.
+
+## Pandorical
+
+The pattern on a bed is drawn by Pandorical's banner decals: the bed itself is the game's own block,
+with the layers hung on it for whoever can see them. Pandorical is required on the server, and on a
+client to see the pattern - without it a patterned bed is an ordinary bed, and still sleeps, breaks
+and moves house as one.
 
 ## Development
 
