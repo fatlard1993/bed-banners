@@ -7,8 +7,10 @@
       "The same mod under a new version number, so the release had a file that could go up."
     ],
     "1.0.0": [
-      "Beds go in the loom's banner slot and come out wearing the pattern. Break a patterned bed and you get the patterned bed back, so the design moves house with it, and beds standing side by side keep one pattern each.",
-      "Server side: Pandorical draws the pattern over the bed on the client, so there is nothing extra to install."
+      "Beds go in the loom's banner slot and come out wearing the pattern.",
+      "Break a patterned bed and you get the patterned bed back.",
+      "Beds standing side by side keep one pattern each.",
+      "Server side: Pandorical draws the pattern, so there is nothing extra to install."
     ]
   }
 }
