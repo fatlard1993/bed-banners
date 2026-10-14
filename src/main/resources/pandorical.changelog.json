@@ -3,6 +3,9 @@
     "Put a bed in the loom with a dye and it comes out with a pattern on the blanket, in every pattern the loom offers and as many layers as a banner takes."
   ],
   "versions": {
+    "1.0.2": [
+      "Release notes rewritten to read plainly; nothing in play changes."
+    ],
     "1.0.1": [
       "Version bump only; nothing changed."
     ],
