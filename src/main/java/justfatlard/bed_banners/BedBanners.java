@@ -3,9 +3,12 @@ package justfatlard.bed_banners;
 import java.util.HashMap;
 import java.util.Map;
 
+import justfatlard.pandorical.api.PandoricalApi;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -27,6 +30,24 @@ public final class BedBanners {
 	 */
 	public static boolean isPatternable(ItemStack stack) {
 		return bannerFor(stack.getItem()) != null;
+	}
+
+	/**
+	 * Whether this player's loom may take a bed.
+	 *
+	 * <p>Only a client that completed the Pandorical handshake: the vanilla loom screen casts the
+	 * banner slot's item to a banner for its preview and crashes on a bed, and the guard against
+	 * that ({@code LoomScreenBedMixin}) is in Pandorical's client half. The guard has no capability
+	 * string of its own, and no protocol number marks it either: it arrived in Pandorical 1.3.0,
+	 * the release that raised the protocol to 15. A Pandorical server refuses a client below its
+	 * own protocol during the handshake, so every client that completes one is new enough.
+	 *
+	 * <p>A player that is not a {@code ServerPlayer} is the client's own copy of the menu, guessing
+	 * ahead of the server. That only runs with this mod in the client, so with Pandorical too.
+	 */
+	public static boolean canPatternBeds(Player player) {
+		if (player instanceof ServerPlayer serverPlayer) return PandoricalApi.isAvailable(serverPlayer);
+		return player != null;
 	}
 
 	/** Whether a placed bed is carrying a pattern worth drawing. */

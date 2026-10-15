@@ -15,7 +15,7 @@ Mine a patterned bed and you get the patterned bed back, ready to place somewher
 Bed Banners goes on the server with Pandorical, and players need Pandorical on their client to use it properly:
 
 - **With Pandorical**, the pattern is drawn on the blanket itself, in the bed's colour, from the pillow to the foot.
-- **Without it**, a player sees a banner of the bed's colour lying flat on the mattress instead, and should not use the loom: picking a pattern with a bed in the slot crashes a client without Pandorical. The bed still sleeps, breaks and moves like any other.
+- **Without it**, a player sees a banner of the bed's colour lying flat on the mattress instead, and cannot put a bed in the loom. The bed still sleeps, breaks and moves like any other.
 
 ## Development
 
