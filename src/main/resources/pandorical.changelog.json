@@ -3,6 +3,10 @@
     "Put a bed in the loom with a dye and it comes out with a pattern on the blanket, in every pattern the loom offers and as many layers as a banner takes."
   ],
   "versions": {
+    "1.0.7": [
+      "A patterned bed's blanket goes to the players in range of it, as they come in range, rather than to everyone in the dimension each time its chunk loads.",
+      "A patterned bed facing east or south shows its pattern to the players watching as it is placed, not only once they leave and come back."
+    ],
     "1.0.6": [
       "A demo to play in PvP Dimensions' onboarding."
     ],
