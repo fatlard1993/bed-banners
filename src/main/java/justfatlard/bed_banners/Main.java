@@ -3,6 +3,7 @@ package justfatlard.bed_banners;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Display;
@@ -40,12 +41,13 @@ public class Main implements ModInitializer {
 			return true;
 		});
 
-		// Two arrivals, one event. A player loading into a level - joining, respawning, coming
-		// through a portal - is shown every blanket already loaded there. A blanket loading into
-		// a level is re-posed (an older build laid it differently) and shown to everyone there.
+		// A blanket loading into a level is re-posed: an older build laid it differently.
 		ServerEntityEvents.ENTITY_LOAD.register((entity, level) -> {
-			if (entity instanceof net.minecraft.server.level.ServerPlayer player) BedBlanket.showAll(level, player);
 			if (entity instanceof Display.ItemDisplay blanket) BedBlanket.refresh(level, blanket);
+		});
+		// Its decal goes to whoever comes in range of it, as the blanket itself does.
+		EntityTrackingEvents.START_TRACKING.register((entity, player) -> {
+			if (entity instanceof Display.ItemDisplay blanket) BedBlanket.showTo(player, blanket);
 		});
 
 		System.out.println("[" + MOD_ID + "] Loaded");

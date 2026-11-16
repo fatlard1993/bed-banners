@@ -108,34 +108,20 @@ public final class BedBlanket {
 		pose(blanket, foot, state);
 		blanket.addTag(TAG);
 
+		// Everyone in range starts tracking it here, and is shown its decal then.
 		level.addFreshEntity(blanket);
-		show(level, foot, state, bed.get(DataComponents.BANNER_PATTERNS));
 	}
 
-	/** The decal for this bed, to everyone in its level. */
-	private static void show(ServerLevel level, BlockPos foot, BlockState state, BannerPatternLayers layers) {
+	/** This blanket's decal, to a player who has just come in range of it. */
+	public static void showTo(ServerPlayer player, Display.ItemDisplay blanket) {
+		if (!blanket.entityTags().contains(TAG) || !(blanket.level() instanceof ServerLevel level)) return;
+		BlockPos at = BlockPos.containing(blanket.position());
+		BlockState state = level.getBlockState(at);
+		BlockPos foot = footOf(state, at);
+		if (foot == null) return;
+		BannerPatternLayers layers = blanket.getSlot(0).get().get(DataComponents.BANNER_PATTERNS);
 		if (layers == null || layers.layers().isEmpty()) return;
-		BannerDecalApi.Decal decal = decalFor(foot, state, layers);
-		for (ServerPlayer player : level.players()) {
-			PandoricalApi.bannerDecals().send(player, decal);
-		}
-	}
-
-	/** Every blanket loaded in this level, to one player who has just arrived in it. */
-	public static void showAll(ServerLevel level, ServerPlayer player) {
-		List<BannerDecalApi.Decal> decals = new java.util.ArrayList<>();
-		for (Display.ItemDisplay blanket : level.getEntities(
-				net.minecraft.world.level.entity.EntityTypeTest.forClass(Display.ItemDisplay.class),
-				entity -> entity.entityTags().contains(TAG))) {
-			BlockPos at = BlockPos.containing(blanket.position());
-			BlockState state = level.getBlockState(at);
-			BlockPos foot = footOf(state, at);
-			if (foot == null) continue;
-			BannerPatternLayers layers = blanket.getSlot(0).get().get(DataComponents.BANNER_PATTERNS);
-			if (layers == null || layers.layers().isEmpty()) continue;
-			decals.add(decalFor(foot, state, layers));
-		}
-		PandoricalApi.bannerDecals().send(player, decals);
+		PandoricalApi.bannerDecals().send(player, decalFor(foot, state, layers));
 	}
 
 	/** Anchored on the head block, the pattern's top at the pillow's edge, running to the foot. */
@@ -162,7 +148,6 @@ public final class BedBlanket {
 		if (foot == null) return;
 
 		pose(blanket, foot, state);
-		show(level, foot, state, blanket.getSlot(0).get().get(DataComponents.BANNER_PATTERNS));
 	}
 
 	private static void pose(Display.ItemDisplay blanket, BlockPos foot, BlockState state) {
