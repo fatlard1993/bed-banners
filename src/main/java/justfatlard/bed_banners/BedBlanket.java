@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mojang.math.Transformation;
 
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -106,10 +107,15 @@ public final class BedBlanket {
 		blanket.setBillboardConstraints(Display.BillboardConstraints.FIXED);
 		blanket.setViewRange(VIEW_RANGE);
 		pose(blanket, foot, state);
-		blanket.addTag(TAG);
 
-		// Everyone in range starts tracking it here, and is shown its decal then.
+		// The bed's head half is not placed yet, so showTo, reading the bed off the level, can miss
+		// it: the tag goes on after the players in range start tracking, and they are shown it here.
 		level.addFreshEntity(blanket);
+		blanket.addTag(TAG);
+		BannerDecalApi.Decal decal = decalFor(foot, state, bed.get(DataComponents.BANNER_PATTERNS));
+		for (ServerPlayer player : PlayerLookup.tracking(blanket)) {
+			PandoricalApi.bannerDecals().send(player, decal);
+		}
 	}
 
 	/** This blanket's decal, to a player who has just come in range of it. */
